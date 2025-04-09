@@ -5,7 +5,7 @@ using SubD;
 using System.Diagnostics;
 
 [Tool]
-public partial class MeshInstance3d : MeshInstance3D
+public partial class BishopHat : MeshInstance3D
 {
     bool Clean = false;
 
@@ -13,36 +13,39 @@ public partial class MeshInstance3d : MeshInstance3D
     {
         if (!Clean)
         {
-            Generate();
-
             Clean = true;
+
+            Generate();
         }
     }
 
     void Generate()
     {
-        BuildFromCubes bfc = new BuildFromCubes();
-        bfc.SetCube(new Vector3I(0, 0, 0), 1);
-        // bfc.SetCube(new Vector3I(1, 0, 0), 1);
-        // bfc.SetCube(new Vector3I(0, 1, 0), 1);
-        // bfc.SetCube(new Vector3I(1, 1, 0), 1);
-        // bfc.SetCube(new Vector3I(0, 0, 1), 1);
-        // bfc.SetCube(new Vector3I(1, 0, 1), 1);
-        // bfc.SetCube(new Vector3I(0, 1, 1), 1);
-        // bfc.SetCube(new Vector3I(1, 1, 1), 1);
+        BuildFromCubes bfc = new();
+        bfc.AddCube(new Vector3I(0, 1, 0));
+        bfc.AddCube(new Vector3I(0, 0, 0));
 
         Surface surf = bfc.ToSurface();
 
-        Vert v = surf.GetVert(new Vector3(0.5f, 0.5f, 0.5f));
+        Vert v = surf.GetVert(new Vector3(0.5f, 1.5f, 0.5f));
         v.IsSharp = true;
-        v = surf.GetVert(new Vector3(-0.5f, 0.5f, 0.5f));
+        v = surf.GetVert(new Vector3(-0.5f, 1.5f, 0.5f));
         v.IsSharp = true;
-        v = surf.GetVert(new Vector3(-0.5f, 0.5f, -0.5f));
+        v = surf.GetVert(new Vector3(-0.5f, 1.5f, -0.5f));
         v.IsSharp = true;
-        v = surf.GetVert(new Vector3(0.5f, 0.5f, -0.5f));
+        v = surf.GetVert(new Vector3(0.5f, 1.5f, -0.5f));
         v.IsSharp = true;
 
-        Edge e = surf.GetEdge(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(-0.5f, -0.5f, 0.5f));
+        Edge e = surf.GetEdge(new Vector3(-0.5f, 0.5f, -0.5f), new Vector3(-0.5f, 0.5f, 0.5f));
+        e.IsSharp = true;
+        e = surf.GetEdge(new Vector3(-0.5f, 0.5f, 0.5f), new Vector3(0.5f, 0.5f, 0.5f));
+        e.IsSharp = true;
+        e = surf.GetEdge(new Vector3(0.5f, 0.5f, 0.5f), new Vector3(0.5f, 0.5f, -0.5f));
+        e.IsSharp = true;
+        e = surf.GetEdge(new Vector3(0.5f, 0.5f, -0.5f), new Vector3(-0.5f, 0.5f, -0.5f));
+        e.IsSharp = true;
+
+        e = surf.GetEdge(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(-0.5f, -0.5f, 0.5f));
         e.IsSharp = true;
         e = surf.GetEdge(new Vector3(-0.5f, -0.5f, 0.5f), new Vector3(0.5f, -0.5f, 0.5f));
         e.IsSharp = true;
@@ -57,7 +60,6 @@ public partial class MeshInstance3d : MeshInstance3D
         // }
 
         var sd = new CatmullClarkSubdivider();
-        surf = sd.Subdivide(surf);
         surf = sd.Subdivide(surf);
         surf = sd.Subdivide(surf);
         surf = sd.Subdivide(surf);
