@@ -119,6 +119,6 @@ public partial class CubeSharpTest : Node3D
         surf = CCS.Subdivide(surf);
         surf = CCS.Subdivide(surf);
 
-        am.Mesh = surf.ToMesh();
+        am.Mesh = surf.ToMesh(Surface.MeshMode.Surface);
     }
 }

@@ -63,6 +63,6 @@ public partial class Cactus : MeshInstance3D
         surf = sd.Subdivide(surf);
         surf = sd.Subdivide(surf);
         // Mesh = surf.ToMeshLines(false);
-        Mesh = surf.ToMesh();
+        Mesh = surf.ToMesh(Surface.MeshMode.Surface);
     }
 }

@@ -37,22 +37,22 @@ public partial class BishopHat : MeshInstance3D
         v.IsSharp = true;
 
         Edge e = surf.GetEdge(new Vector3(-0.5f, 0.5f, -0.5f), new Vector3(-0.5f, 0.5f, 0.5f));
-        e.IsSharp = true;
+        e.IsSetSharp = true;
         e = surf.GetEdge(new Vector3(-0.5f, 0.5f, 0.5f), new Vector3(0.5f, 0.5f, 0.5f));
-        e.IsSharp = true;
+        e.IsSetSharp = true;
         e = surf.GetEdge(new Vector3(0.5f, 0.5f, 0.5f), new Vector3(0.5f, 0.5f, -0.5f));
-        e.IsSharp = true;
+        e.IsSetSharp = true;
         e = surf.GetEdge(new Vector3(0.5f, 0.5f, -0.5f), new Vector3(-0.5f, 0.5f, -0.5f));
-        e.IsSharp = true;
+        e.IsSetSharp = true;
 
         e = surf.GetEdge(new Vector3(-0.5f, -0.5f, -0.5f), new Vector3(-0.5f, -0.5f, 0.5f));
-        e.IsSharp = true;
+        e.IsSetSharp = true;
         e = surf.GetEdge(new Vector3(-0.5f, -0.5f, 0.5f), new Vector3(0.5f, -0.5f, 0.5f));
-        e.IsSharp = true;
+        e.IsSetSharp = true;
         e = surf.GetEdge(new Vector3(0.5f, -0.5f, 0.5f), new Vector3(0.5f, -0.5f, -0.5f));
-        e.IsSharp = true;
+        e.IsSetSharp = true;
         e = surf.GetEdge(new Vector3(0.5f, -0.5f, -0.5f), new Vector3(-0.5f, -0.5f, -0.5f));
-        e.IsSharp = true;
+        e.IsSetSharp = true;
 
         // foreach(Edge edge in surf.Edges.Values)
         // {
@@ -64,6 +64,6 @@ public partial class BishopHat : MeshInstance3D
         surf = sd.Subdivide(surf);
         surf = sd.Subdivide(surf);
         // Mesh = surf.ToMeshLines(false);
-        Mesh = surf.ToMesh();
+        Mesh = surf.ToMesh(Surface.MeshMode.Surface);
     }
 }

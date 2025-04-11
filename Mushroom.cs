@@ -63,14 +63,14 @@ public partial class Mushroom : MeshInstance3D
 
         for (int i = 0; i < 3; i++)
         {
-            Vector3[] here_positions = ring_verts.Select(x => x + new Vector3(0, i, 0)).ToArray();
+            Vector3[] here_positions = [.. ring_verts.Select(x => x + new Vector3(0, i, 0))];
 
             Vector3 prev_pos = here_positions.Last();
 
             foreach(var pos in here_positions)
             {
                 Edge e = surf.GetEdge(prev_pos, pos);
-                e.IsSharp = true;
+                e.IsSetSharp = true;
 
                 prev_pos = pos;
             }
@@ -83,7 +83,7 @@ public partial class Mushroom : MeshInstance3D
                 Vector3 p2 = new(1.5f + i, 2.5f, 1.5f);
 
                 Edge e = surf.GetEdge(p1, p2);
-                e.IsSharp = true;
+                e.IsSetSharp = true;
             }
 
             {
@@ -91,7 +91,7 @@ public partial class Mushroom : MeshInstance3D
                 Vector3 p2 = new(1.5f + i, 2.5f, 6.5f);
 
                 Edge e = surf.GetEdge(p1, p2);
-                e.IsSharp = true;
+                e.IsSetSharp = true;
             }
 
             {
@@ -99,7 +99,7 @@ public partial class Mushroom : MeshInstance3D
                 Vector3 p2 = new(0.5f, 2.5f, 2.5f + i);
 
                 Edge e = surf.GetEdge(p1, p2);
-                e.IsSharp = true;
+                e.IsSetSharp = true;
             }
 
             {
@@ -107,7 +107,7 @@ public partial class Mushroom : MeshInstance3D
                 Vector3 p2 = new(5.5f, 2.5f, 2.5f + i);
 
                 Edge e = surf.GetEdge(p1, p2);
-                e.IsSharp = true;
+                e.IsSetSharp = true;
             }
         }
 
@@ -116,6 +116,6 @@ public partial class Mushroom : MeshInstance3D
         surf = sd.Subdivide(surf);
         surf = sd.Subdivide(surf);
         // // Mesh = surf.ToMeshLines(false);
-        Mesh = surf.ToMesh();
+        Mesh = surf.ToMesh(Surface.MeshMode.Surface);
     }
 }
