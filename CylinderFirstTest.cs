@@ -13,7 +13,7 @@ public partial class CylinderFirstTest : Node3D
         {
             Clean = true;
 
-            BuildFromCylinder bfc = new();
+            BuildFromCylinders bfc = new();
             CatmullClarkSubdivider ccs = new();
 
             // bfc.AddSection(new CylSection(4, 1, 6, CylSection.SectionSolidity.Hollow, 2));
@@ -45,18 +45,46 @@ public partial class CylinderFirstTest : Node3D
             Transform3D transform2 = Transform3D.Identity;
             transform2 = transform2.RotatedLocal(new Vector3(0, 0, 1), 30 * MathF.PI / 180);
             transform2 = transform2.Translated(new Vector3(0, 3, 0));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, length: 0));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, length: 3));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform2));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform2));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform2));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, length: 5));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform));
-            bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform));
+
+            Func<CylSection, int, SubD.BuildFromCylinders.Topology, bool> vert_sharpener = (c, t, i) => false;
+            // Func<CylSection, int, SubD.BuildFromCylinders.Topology, BuildFromCylinders.EdgeType, bool> edge_sharpener
+            //     = (c, i, t, et) => t == BuildFromCylinders.Topology.Outside
+            //                     && ((et == BuildFromCylinders.EdgeType.Circumferential && (i & 1) == 0)
+            //                         || (et == BuildFromCylinders.EdgeType.Coaxial));
+            Func<CylSection, int, SubD.BuildFromCylinders.Topology, BuildFromCylinders.EdgeType, bool> edge_sharpener
+                = (c, i, t, et) => et == BuildFromCylinders.EdgeType.Coaxial;
+
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 0));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 1));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 4, length: 0, vert_sharpener: vert_sharpener));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 0));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 1));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 4, length: 0, vert_sharpener: vert_sharpener));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 0));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 1));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 4, length: 0, vert_sharpener: vert_sharpener));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 0));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 1));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 4, length: 0, vert_sharpener: vert_sharpener));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 0));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 1));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 4, length: 0, vert_sharpener: vert_sharpener));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 0));
+            bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 1));
+
+            // bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, length: 0, vert_sharpener: vert_sharpener, edge_sharpener: edge_sharpener));
+            // bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, transform: transform, vert_sharpener: vert_sharpener, edge_sharpener: edge_sharpener));
+            // bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, transform: transform, vert_sharpener: vert_sharpener, edge_sharpener: edge_sharpener));
+            // bfc.AddSection(new CylSection(solidity: SubD.BuildFromCylinders.SectionSolidity.Hollow, radius: 3, transform: transform, vert_sharpener: vert_sharpener, edge_sharpener: edge_sharpener));
+
+            // bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, length: 3));
+            // bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform2));
+            // bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform2));
+            // bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform2));
+            // bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, length: 5));
+            // bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform));
+            // bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform));
+            // bfc.AddSection(new CylSection(solidity: CylSection.SectionSolidity.Hollow, radius: 3, transform: transform));
 
             // bfc.AddSection(new CylSection(3, 0, 6));
             // bfc.AddSection(new CylSection(3, 3, 6, offset_angle_degrees: 20));
@@ -86,7 +114,7 @@ public partial class CylinderFirstTest : Node3D
             surf = ccs.Subdivide(surf);
 
             GetNode<MeshInstance3D>("Surface").Mesh = surf.ToMesh(Surface.MeshMode.Surface);
-            GetNode<MeshInstance3D>("Mesh").Mesh = surf.ToMesh(Surface.MeshMode.Edges);
+            GetNode<MeshInstance3D>("Mesh").Mesh = surf.ToMesh(Surface.MeshMode.Edges, new Surface.MeshOptions{  });
             GetNode<MeshInstance3D>("Normals").Mesh = surf.ToMesh(Surface.MeshMode.Normals, new Surface.MeshOptions{ DrawNormalsLength = 0.2f, Normals_IncludePoly = true });
         }
     }
