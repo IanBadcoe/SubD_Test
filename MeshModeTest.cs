@@ -34,19 +34,19 @@ public partial class MeshModeTest : Node3D
         CreateCube(
             GetNode<MeshInstance3D>("SurfaceSetSharp"),
             cube_mods,
-            Surface.MeshMode.Surface, new Surface.MeshOptions {}
+            Surface.MeshMode.Surface, new MeshOptions {}
         );
 
         CreateCube(
             GetNode<MeshInstance3D>("SurfaceAngleSharp80Degrees"),
             cube_mods,
-            Surface.MeshMode.Surface, new Surface.MeshOptions { SplitAngleDegrees = 80 }
+            Surface.MeshMode.Surface, new MeshOptions { SplitAngleDegrees = 80 }
         );
 
         CreateCube(
             GetNode<MeshInstance3D>("SurfaceAngleSharp10Degrees"),
             cube_mods,
-            Surface.MeshMode.Surface, new Surface.MeshOptions { SplitAngleDegrees = 10 }
+            Surface.MeshMode.Surface, new MeshOptions { SplitAngleDegrees = 10 }
         );
 
         // --
@@ -54,31 +54,31 @@ public partial class MeshModeTest : Node3D
         CreateCube(
             GetNode<MeshInstance3D>("EdgesAll"),
             cube_mods,
-            Surface.MeshMode.Edges, new Surface.MeshOptions {}
+            Surface.MeshMode.Edges, new MeshOptions {}
         );
 
         CreateCube(
             GetNode<MeshInstance3D>("EdgesSetSharp"),
             cube_mods,
-            Surface.MeshMode.Edges, new Surface.MeshOptions { Edges_IncludeSmooth = false }
+            Surface.MeshMode.Edges, new MeshOptions { Edges_IncludeSmooth = false }
         );
 
         CreateCube(
             GetNode<MeshInstance3D>("EdgesAngleSharp80Degrees"),
             cube_mods,
-            Surface.MeshMode.Edges, new Surface.MeshOptions { Edges_IncludeSmooth = false, Edges_DetermineSmoothnessFromAngle = true, SplitAngleDegrees = 80 }
+            Surface.MeshMode.Edges, new MeshOptions { Edges_IncludeSmooth = false, Edges_DetermineSmoothnessFromAngle = true, SplitAngleDegrees = 80 }
         );
 
         CreateCube(
             GetNode<MeshInstance3D>("EdgesAngleSharp10Degrees"),
             cube_mods,
-            Surface.MeshMode.Edges, new Surface.MeshOptions { Edges_IncludeSmooth = false, Edges_DetermineSmoothnessFromAngle = true, SplitAngleDegrees = 10}
+            Surface.MeshMode.Edges, new MeshOptions { Edges_IncludeSmooth = false, Edges_DetermineSmoothnessFromAngle = true, SplitAngleDegrees = 10}
         );
 
         CreateCube(
             GetNode<MeshInstance3D>("EdgesAngleSharp10Degrees"),
             cube_mods,
-            Surface.MeshMode.Edges, new Surface.MeshOptions { Edges_IncludeSmooth = false, Edges_DetermineSmoothnessFromAngle = true, SplitAngleDegrees = 10}
+            Surface.MeshMode.Edges, new MeshOptions { Edges_IncludeSmooth = false, Edges_DetermineSmoothnessFromAngle = true, SplitAngleDegrees = 10}
         );
 
         CreateCube(
@@ -92,7 +92,7 @@ public partial class MeshModeTest : Node3D
                 cube.EdgeTag[Cube.EdgeName.BackRight] = "x";
                 cube.EdgeTag[Cube.EdgeName.TopRight] = "x";
             },
-            Surface.MeshMode.Edges, new Surface.MeshOptions { Edges_Filter = edge => edge.Tag == "x" }
+            Surface.MeshMode.Edges, new MeshOptions { Edges_Filter = edge => edge.Tag == "x" }
         );
 
         // --
@@ -100,54 +100,54 @@ public partial class MeshModeTest : Node3D
         CreateCubePair(
             "FaceNormals",
             cube_mods,
-            Surface.MeshMode.Normals, new Surface.MeshOptions { Normals_IncludePoly = true, DrawNormalsLength = 0.3f },
-            Surface.MeshMode.Surface, new Surface.MeshOptions { SplitAngleDegrees = 0 }
+            Surface.MeshMode.Normals, new MeshOptions { Normals_IncludePoly = true, DrawNormalsLength = 0.3f },
+            Surface.MeshMode.Surface, new MeshOptions { SplitAngleDegrees = 0 }
         );
 
         CreateCubePair(
             "EdgeNormals",
             cube_mods,
-            Surface.MeshMode.Normals, new Surface.MeshOptions { Normals_IncludeEdge = true, DrawNormalsLength = 0.3f },
-            Surface.MeshMode.Edges, new Surface.MeshOptions { }
+            Surface.MeshMode.Normals, new MeshOptions { Normals_IncludeEdge = true, DrawNormalsLength = 0.3f },
+            Surface.MeshMode.Edges, new MeshOptions { }
         );
 
         CreateCubePair(
             "VertNormals",
             cube_mods,
-            Surface.MeshMode.Normals, new Surface.MeshOptions { Normals_IncludeVert = true, DrawNormalsLength = 0.3f },
-            Surface.MeshMode.Edges, new Surface.MeshOptions { }
+            Surface.MeshMode.Normals, new MeshOptions { Normals_IncludeVert = true, DrawNormalsLength = 0.3f },
+            Surface.MeshMode.Edges, new MeshOptions { }
         );
 
         CreateCubePair(
             "SplitNormalsFromTagged",
             cube_mods,
-            Surface.MeshMode.Normals, new Surface.MeshOptions { Normals_IncludeSplitVert = true, DrawNormalsLength = 0.3f },
-            Surface.MeshMode.Edges, new Surface.MeshOptions { }
+            Surface.MeshMode.Normals, new MeshOptions { Normals_IncludeSplitVert = true, DrawNormalsLength = 0.3f },
+            Surface.MeshMode.Edges, new MeshOptions { }
         );
 
         CreateCubePair(
             "SplitNormalsFromAngle80Degrees",
             cube_mods,
-            Surface.MeshMode.Normals, new Surface.MeshOptions { Normals_IncludeSplitVert = true, DrawNormalsLength = 0.3f, SplitAngleDegrees = 80, Edges_DetermineSmoothnessFromAngle = true },
-            Surface.MeshMode.Edges, new Surface.MeshOptions { }
+            Surface.MeshMode.Normals, new MeshOptions { Normals_IncludeSplitVert = true, DrawNormalsLength = 0.3f, SplitAngleDegrees = 80, Edges_DetermineSmoothnessFromAngle = true },
+            Surface.MeshMode.Edges, new MeshOptions { }
         );
 
         CreateCubePair(
             "SplitNormalsFromAngle10Degrees",
             cube_mods,
-            Surface.MeshMode.Normals, new Surface.MeshOptions { Normals_IncludeSplitVert = true, DrawNormalsLength = 0.3f, SplitAngleDegrees = 10, Edges_DetermineSmoothnessFromAngle = true },
-            Surface.MeshMode.Edges, new Surface.MeshOptions { }
+            Surface.MeshMode.Normals, new MeshOptions { Normals_IncludeSplitVert = true, DrawNormalsLength = 0.3f, SplitAngleDegrees = 10, Edges_DetermineSmoothnessFromAngle = true },
+            Surface.MeshMode.Edges, new MeshOptions { }
         );
     }
 
-    void CreateCubePair(string node, Action<Cube> cube_mods, Surface.MeshMode mode1, Surface.MeshOptions options1, Surface.MeshMode mode2, Surface.MeshOptions options2)
+    void CreateCubePair(string node, Action<Cube> cube_mods, Surface.MeshMode mode1, MeshOptions options1, Surface.MeshMode mode2, MeshOptions options2)
     {
         CreateCube(GetNode<MeshInstance3D>(node + "/Normals"), cube_mods, mode1, options1);
         CreateCube(GetNode<MeshInstance3D>(node + "/Model"), cube_mods, mode2, options2);
     }
 
 
-    void CreateCube(MeshInstance3D am, Action<Cube> action, Surface.MeshMode mode, Surface.MeshOptions options)
+    void CreateCube(MeshInstance3D am, Action<Cube> action, Surface.MeshMode mode, MeshOptions options)
     {
         Cube cube = BFC.AddCube(Vector3I.Zero);
 

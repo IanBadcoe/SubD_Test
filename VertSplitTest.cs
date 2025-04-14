@@ -42,10 +42,10 @@ public partial class VertSplitTest : Node3D
         GetNode<MeshInstance3D>("Object").Mesh = surf.ToMesh(Surface.MeshMode.Surface);
 
         GetNode<MeshInstance3D>("Annotation").Mesh = surf.ToMesh(Surface.MeshMode.Normals,
-            new Surface.MeshOptions { Normals_IncludeSplitVert = true });
+            new MeshOptions { Normals_IncludeSplitVert = true });
 
         GetNode<MeshInstance3D>("Annotation2").Mesh = surf.ToMesh(Surface.MeshMode.Edges,
-            new Surface.MeshOptions { Edges_IncludeSmooth = false });
+            new MeshOptions { Edges_IncludeSmooth = false });
     }
 
     public override void _Process(double delta)
