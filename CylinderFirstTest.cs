@@ -53,8 +53,9 @@ public partial class CylinderFirstTest : Node3D
             //                     && ((et == BuildFromCylinders.EdgeType.Circumferential && (i & 1) == 0)
             //                         || (et == BuildFromCylinders.EdgeType.Coaxial));
             Func<CylSection, int, Topology, EdgeType, EdgeProps> edge_callback =
-                (c, i, t, et) =>
+                (s, i, t, et) =>
                 {
+                    int where = bfc.Sections.IndexOf(s);
                     string tag = "";
                     bool sharp = false;
 
@@ -65,17 +66,23 @@ public partial class CylinderFirstTest : Node3D
                             break;
                         case EdgeType.Axial:
                             tag = "a";
+                            if (i % 2 == 1 || i == 6)
+                            {
+                                sharp = true;
+                            }
                             break;
                         case EdgeType.Hole:
                             tag = "h";
-                            sharp = true;
                             break;
                         case EdgeType.HoleEdge:
                             tag = "he";
+                            if (where != 1)
+                            {
+                                sharp = true;
+                            }
                             break;
                         case EdgeType.HoleDiagonal:
                             tag = "hd";
-                            sharp = true;
                             break;
                     }
 
@@ -89,18 +96,34 @@ public partial class CylinderFirstTest : Node3D
             {
                 HoleProps? hole_props = null;
                 int where = bfc.Sections.IndexOf(s);
-//                if (where == 1 && i == 3)
+                if (where == 1 && i == 0)
                 {
-                    hole_props = new HoleProps(clearance: 2f);
+                    hole_props = new HoleProps(clearance: 1.5f);
+                }
+                if ((where == 2 || where == 3) && i == 5)
+                {
+                    hole_props = new HoleProps(clearance: 0.5f);
+                }
+                if (where == 2 && i == 4)
+                {
+                    hole_props = new HoleProps(clearance: 0.5f);
+                }
+                if (where == 4 && i >= 4 && i <= 6)
+                {
+                    hole_props = new HoleProps(clearance: 0.5f);
                 }
 
                 return new SectorProps(hole_props);
             };
 
-            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 3, length: 10, sectors: 5, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback));
-            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 6, length: 10, sectors: 5, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback));
-            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 6, length: 10, sectors: 5, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback));
-            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 3, length: 10, sectors: 5, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback));
+            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 5, length: 4.5f, sectors: 7, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback, rot_z_degrees: -10));
+            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 6, length: 4.5f, sectors: 7, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback, rot_z_degrees: -10));
+            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 5, length: 4.5f, sectors: 7, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback, rot_z_degrees: -10));
+            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 4, length: 4.5f, sectors: 7, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback, rot_z_degrees: -10));
+            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 3, length: 4.5f, sectors: 7, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback, rot_z_degrees: 10));
+            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 2, length: 2f, sectors: 7, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback, rot_z_degrees: 10));
+            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 2, length: 2f, sectors: 7, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback, rot_z_degrees: 10));
+            bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 2, length: 2f, sectors: 7, thickness: 1, sector_callback: sector_callback, edge_callback: edge_callback, rot_z_degrees: 10));
             // bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 12, length: 10, sectors: 5, sector_callback: sector_callback, rot_x_degrees: 15));
 
             // bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 15, length: 10, sectors: 5, sector_callback: sector_callback, rot_y_degrees: 15, rot_z_degrees: 20));
@@ -178,11 +201,11 @@ public partial class CylinderFirstTest : Node3D
             Surface surf = bfc.ToSurface();
             surf = ccs.Subdivide(surf);
             surf = ccs.Subdivide(surf);
-            surf = ccs.Subdivide(surf);
+            // surf = ccs.Subdivide(surf);
             // surf = ccs.Subdivide(surf);
 
             GetNode<MeshInstance3D>("Surface").Mesh = surf.ToMesh(Surface.MeshMode.Surface);
-            GetNode<MeshInstance3D>("Mesh").Mesh = surf.ToMesh(Surface.MeshMode.Edges, new MeshOptions{ /* Edges_Filter = x => x.Tag == "hd" */ });
+            GetNode<MeshInstance3D>("Mesh").Mesh = surf.ToMesh(Surface.MeshMode.Edges, new MeshOptions{ /* Edges_Filter = x => x.Tag == "he" */ });
             GetNode<MeshInstance3D>("Normals").Mesh = surf.ToMesh(Surface.MeshMode.Normals, new MeshOptions{ DrawNormalsLength = 0.2f, Normals_IncludePoly = true });
         }
     }

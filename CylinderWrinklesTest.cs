@@ -62,7 +62,7 @@ public partial class CylinderWrinklesTest : Node3D
 
             Surface surf = bfc.ToSurface();
             surf = ccs.Subdivide(surf);
-            // surf = ccs.Subdivide(surf);
+            surf = ccs.Subdivide(surf);
             // surf = ccs.Subdivide(surf);
             // surf = ccs.Subdivide(surf);
 
