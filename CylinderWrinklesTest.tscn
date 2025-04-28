@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=4 uid="uid://bayubu1yet5xa"]
 
-[ext_resource type="Script" uid="uid://doyiv0jwn7srk" path="res://CylinderWrinklesTest.cs" id="1_8uy0n"]
+[ext_resource type="Script" uid="uid://cyv3ysiup3f6j" path="res://CylinderWrinklesTest.cs" id="1_8uy0n"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_8uy0n"]
 _surfaces = [{
