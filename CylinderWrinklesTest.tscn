@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=4 uid="uid://bayubu1yet5xa"]
+[gd_scene load_steps=7 format=4 uid="uid://cxsaawjqjcuuh"]
 
-[ext_resource type="Script" uid="uid://cyv3ysiup3f6j" path="res://CylinderWrinklesTest.cs" id="1_8uy0n"]
+[ext_resource type="Script" uid="uid://cyv3ysiup3f6j" path="res://CylinderWrinklesTest.cs" id="1_0x34r"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_8uy0n"]
 _surfaces = [{
@@ -48,7 +48,7 @@ emission = Color(0.18011, 0.1079, 0.83, 1)
 
 [node name="CylinderFirstTest" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 0.34202, -0.939693, 0, 0.939693, 0.34202, 0, 0, 0)
-script = ExtResource("1_8uy0n")
+script = ExtResource("1_0x34r")
 
 [node name="Surface" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_8uy0n")

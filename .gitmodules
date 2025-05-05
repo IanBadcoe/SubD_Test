@@ -2,3 +2,6 @@
 	path = Godot_SubD
 	url = https://github.com/IanBadcoe/Godot_SubD.git
 	branch = main
+[submodule "Godot_Util_Temp"]
+	path = Godot_Util_Temp
+	url = https://github.com/IanBadcoe/Godot_Util.git
