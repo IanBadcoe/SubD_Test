@@ -1,0 +1,40 @@
+By section name
+
+Concat	->	92
+Cubes	->	5183
+Debug	->	1307
+DumbConcat	->	51144
+MergeFacePair	->	232057
+MergeFaces	->	241868
+Outer	->	383480
+PopulateMergeStock	->	16834
+Subdivide	->	50145
+TargetCheck	->	233080
+ToMesh - merged	->	4299
+ToMesh - separate	->	8140
+ToSurface - merged	->	276482
+ToSurface - separate	->	36342
+ToSurfaces	->	312635
+
+
+By stack path
+
+  |  Outer	->	383480
+  |  Outer  |  Cubes	->	5183
+  |  Outer  |  Subdivide	->	50145
+  |  Outer  |  ToMesh - merged	->	4299
+  |  Outer  |  ToMesh - separate	->	8140
+  |  Outer  |  ToSurface - merged	->	276482
+  |  Outer  |  ToSurface - merged  |  Concat	->	13
+  |  Outer  |  ToSurface - merged  |  ToSurfaces	->	276467
+  |  Outer  |  ToSurface - merged  |  ToSurfaces  |  Debug	->	882
+  |  Outer  |  ToSurface - merged  |  ToSurfaces  |  DumbConcat	->	33314
+  |  Outer  |  ToSurface - merged  |  ToSurfaces  |  MergeFaces	->	241868
+  |  Outer  |  ToSurface - merged  |  ToSurfaces  |  MergeFaces  |  TargetCheck	->	233080
+  |  Outer  |  ToSurface - merged  |  ToSurfaces  |  MergeFaces  |  TargetCheck  |  MergeFacePair	->	232057
+  |  Outer  |  ToSurface - separate	->	36342
+  |  Outer  |  ToSurface - separate  |  Concat	->	79
+  |  Outer  |  ToSurface - separate  |  ToSurfaces	->	36168
+  |  Outer  |  ToSurface - separate  |  ToSurfaces  |  Debug	->	425
+  |  Outer  |  ToSurface - separate  |  ToSurfaces  |  DumbConcat	->	17830
+  |  Outer  |  ToSurface - separate  |  ToSurfaces  |  PopulateMergeStock	->	16834

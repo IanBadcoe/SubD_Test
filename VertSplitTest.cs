@@ -60,5 +60,4 @@ public partial class VertSplitTest : Node3D
             TestCase(false, true, false, true);
         }
     }
-
 }

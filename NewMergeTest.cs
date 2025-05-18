@@ -1,3 +1,5 @@
+#define PROFILE_ON
+
 using Godot;
 using SubD;
 using SubD.Builders;
@@ -35,7 +37,7 @@ public partial class NewMergeTest : Node3D
     readonly BuildFromCubes BFC = new();
     readonly CatmullClarkSubdivider CCS = new();
 
-    int TestCaseIdx { get; set; } = 0;
+    int TestCaseIdx { get; set; } = 25;
 
     TestMode CurrentTestMode { get; set; } = TestMode.Basic;
 
@@ -204,28 +206,42 @@ public partial class NewMergeTest : Node3D
 
         List<Cube> cubes = [];
 
+        PoorMansProfiler.Start("Cubes");
+
         foreach (Vector3I centre in centres)
         {
             cubes.Add(BFC.AddCube(centre, 0));
         }
 
+        PoorMansProfiler.End("Cubes");
+
+        PoorMansProfiler.Start("ToSurface - separate");
         Surface surf = BFC.ToSurface(false);
+        PoorMansProfiler.End("ToSurface - separate");
 
         // surf = CCS.Subdivide(surf);
         // surf = CCS.Subdivide(surf);
         // surf = CCS.Subdivide(surf);
 
+        PoorMansProfiler.Start("ToMesh - separate");
         MergedGrid.Mesh = surf.ToMesh(Surface.MeshMode.Edges);
+        PoorMansProfiler.End("ToMesh - separate");
 //        MergedSurf.Mesh = surf.ToMesh(Surface.MeshMode.Surface);
 
+        PoorMansProfiler.Start("ToSurface - merged");
         surf = BFC.ToSurface(true);
+        PoorMansProfiler.End("ToSurface - merged");
 
         // surf = CCS.Subdivide(surf);
         // surf = CCS.Subdivide(surf);
+        PoorMansProfiler.Start("Subdivide");
         surf = CCS.Subdivide(surf);
+        PoorMansProfiler.End("Subdivide");
 
 //        MergedGrid.Mesh = surf.ToMesh(Surface.MeshMode.Edges);
+        PoorMansProfiler.Start("ToMesh - merged");
         MergedSurf.Mesh = surf.ToMesh(Surface.MeshMode.Surface);
+        PoorMansProfiler.End("ToMesh - merged");
 
         ImBounds bounds = centres.Aggregate(new ImBounds(), (x, y) => x.Encapsulating(new ImVec3(y)));
 
@@ -239,8 +255,17 @@ public partial class NewMergeTest : Node3D
 
     public override void _Ready()
     {
-//        SpecificDissectionOfNextTestCase([7,13,8,12,11,6]);
+        PoorMansProfiler.Reset();
+
+        PoorMansProfiler.Start("Outer");
+
         NextTestCase();
+
+        PoorMansProfiler.End("Outer");
+
+        PoorMansProfiler.Dump("profile.txt");
+
+//        SpecificDissectionOfNextTestCase([7,13,8,12,11,6]);
         // TestCase(1, 2, 2, 2);
         // TestCase(2, 2, 2, 2);
         // TestCase(3, 2, 2, 2);
@@ -321,9 +346,9 @@ public partial class NewMergeTest : Node3D
 
     private void NextTestCase()
     {
-        int size = (TestCaseIdx / 30) + 2;
+        int size = (TestCaseIdx / 10) + 2;
 
-        TestCase(TestCaseIdx % 30, size, size, size, CurrentTestMode);
+        TestCase(TestCaseIdx % 10, size, size, size, CurrentTestMode);
 
         TestCaseIdx++;
     }
