@@ -2,6 +2,7 @@ using System;
 using Godot;
 using SubD;
 using SubD.CylTypes;
+using SubD.Builders;
 
 [Tool]
 public partial class CylinderWrinklesTest : Node3D
@@ -68,7 +69,7 @@ public partial class CylinderWrinklesTest : Node3D
 
             GetNode<MeshInstance3D>("Surface").Mesh = surf.ToMesh(Surface.MeshMode.Surface);
             GetNode<MeshInstance3D>("Mesh").Mesh = surf.ToMesh(Surface.MeshMode.Edges, new MeshOptions{ /* Edges_Filter = x => x.Tag == "hd" */ });
-            GetNode<MeshInstance3D>("Normals").Mesh = surf.ToMesh(Surface.MeshMode.Normals, new MeshOptions{ DrawNormalsLength = 0.2f, Normals_IncludePoly = true });
+            GetNode<MeshInstance3D>("Normals").Mesh = surf.ToMesh(Surface.MeshMode.Normals, new MeshOptions{ DrawNormalsLength = 0.2f, Normals_IncludeFace = true });
         }
     }
 }

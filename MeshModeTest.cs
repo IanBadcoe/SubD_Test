@@ -3,6 +3,8 @@ using System;
 using Godot;
 
 using SubD;
+using SubD.Builders;
+
 using Godot_Util;
 
 [Tool]
@@ -101,7 +103,7 @@ public partial class MeshModeTest : Node3D
         CreateCubePair(
             "FaceNormals",
             cube_mods,
-            Surface.MeshMode.Normals, new MeshOptions { Normals_IncludePoly = true, DrawNormalsLength = 0.3f },
+            Surface.MeshMode.Normals, new MeshOptions { Normals_IncludeFace = true, DrawNormalsLength = 0.3f },
             Surface.MeshMode.Surface, new MeshOptions { SplitAngleDegrees = 0 }
         );
 
@@ -160,5 +162,7 @@ public partial class MeshModeTest : Node3D
         surf = CCS.Subdivide(surf);
 
         am.Mesh = surf.ToMesh(mode, options);
+
+        BFC.Reset();
     }
 }

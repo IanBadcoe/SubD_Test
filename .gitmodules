@@ -5,3 +5,6 @@
 [submodule "Godot_Util"]
 	path = Godot_Util
 	url = https://github.com/IanBadcoe/Godot_Util.git
+[submodule "Geom_Util"]
+	path = Geom_Util
+	url = https://github.com/IanBadcoe/Geom_Util.git

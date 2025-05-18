@@ -2,6 +2,7 @@ using System;
 using Godot;
 using SubD;
 using SubD.CylTypes;
+using SubD.Builders;
 
 [Tool]
 public partial class CylinderFirstTest : Node3D
@@ -89,7 +90,7 @@ public partial class CylinderFirstTest : Node3D
                     return new EdgeProps(sharp, tag);
                 };
 
-            // Func<CylSection, int, Topology, PolyProps> poly_callback = (s, i, t) => new PolyProps(i == -1 ? "x" : null);
+            // Func<CylSection, int, Topology, FaceProps> face_callback = (s, i, t) => new FaceProps(i == -1 ? "x" : null);
 
             ;
             Func<CylSection, int, SectorProps> sector_callback = (s, i) =>
@@ -143,23 +144,23 @@ public partial class CylinderFirstTest : Node3D
             // bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 5, length: 10, sectors: 4, sector_callback: sector_callback));
             // bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 5, length: 10, sectors: 4, sector_callback: sector_callback));
 
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, poly_callback: poly_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, poly_callback: poly_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 4, length: 0, poly_callback: poly_callback, vert_callback: vert_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, poly_callback: poly_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, poly_callback: poly_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 4, length: 0, poly_callback: poly_callback, vert_callback: vert_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, poly_callback: poly_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, poly_callback: poly_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 4, length: 0, poly_callback: poly_callback, vert_callback: vert_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, poly_callback: poly_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, poly_callback: poly_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 4, length: 0, poly_callback: poly_callback, vert_callback: vert_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, poly_callback: poly_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, poly_callback: poly_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 4, length: 0, poly_callback: poly_callback, vert_callback: vert_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, poly_callback: poly_callback));
-            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, poly_callback: poly_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, face_callback: face_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, face_callback: face_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 4, length: 0, face_callback: face_callback, vert_callback: vert_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, face_callback: face_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, face_callback: face_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 4, length: 0, face_callback: face_callback, vert_callback: vert_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, face_callback: face_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, face_callback: face_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 4, length: 0, face_callback: face_callback, vert_callback: vert_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, face_callback: face_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, face_callback: face_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 4, length: 0, face_callback: face_callback, vert_callback: vert_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, face_callback: face_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, face_callback: face_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 4, length: 0, face_callback: face_callback, vert_callback: vert_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 0, face_callback: face_callback));
+            // bfc.AddSection(new CylSection(solidity: SectionSolidity.Solid, radius: 3, length: 1, face_callback: face_callback));
 
             // bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 3, length: 0, vert_callback: vert_callback, edge_callback: edge_callback));
             // bfc.AddSection(new CylSection(solidity: SectionSolidity.Hollow, radius: 3, transform: transform, vert_callback: vert_callback, edge_callback: edge_callback));
@@ -206,7 +207,7 @@ public partial class CylinderFirstTest : Node3D
 
             GetNode<MeshInstance3D>("Surface").Mesh = surf.ToMesh(Surface.MeshMode.Surface);
             GetNode<MeshInstance3D>("Mesh").Mesh = surf.ToMesh(Surface.MeshMode.Edges, new MeshOptions{ /* Edges_Filter = x => x.Tag == "he" */ });
-            GetNode<MeshInstance3D>("Normals").Mesh = surf.ToMesh(Surface.MeshMode.Normals, new MeshOptions{ DrawNormalsLength = 0.2f, Normals_IncludePoly = true });
+            GetNode<MeshInstance3D>("Normals").Mesh = surf.ToMesh(Surface.MeshMode.Normals, new MeshOptions{ DrawNormalsLength = 0.2f, Normals_IncludeFace = true });
         }
     }
 }

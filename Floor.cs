@@ -1,8 +1,9 @@
-using Godot;
 using System;
-using System.CodeDom.Compiler;
+
+using Godot;
+
 using SubD;
-using System.Diagnostics;
+using SubD.Builders;
 
 [Tool]
 public partial class Floor : MeshInstance3D
@@ -27,7 +28,7 @@ public partial class Floor : MeshInstance3D
         {
             for(int j = -10; j <= 10; j++)
             {
-                bfc.AddCube(new Vector3I(i, -1, j));
+                bfc.AddCube(new Vector3I(i, -1, j), 1);
             }
         }
 

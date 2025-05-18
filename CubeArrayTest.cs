@@ -1,8 +1,11 @@
 using Godot;
+
 using Chickensoft.Introspection;
 using Chickensoft.AutoInject;
+
 using SubD;
-using System;
+using SubD.Builders;
+
 
 [Tool]
 [Meta(typeof(IAutoConnect))]
@@ -34,7 +37,7 @@ public partial class CubeArrayTest : Node3D
         }
     }
 
-    private void Construct()
+    void Construct()
     {
         BuildFromCubes bfc = new();
         CatmullClarkSubdivider ccs = new();
@@ -47,7 +50,7 @@ public partial class CubeArrayTest : Node3D
             {
                 for(int z = -size; z <= size; z++)
                 {
-                    Cube cube = bfc.AddCube(new Vector3I(x, y, z));
+                    Cube cube = bfc.AddCube(new Vector3I(x, y, z), 1);
                     if (z % 2 == 0)
                     {
                         if (y != -size || x != -size)
@@ -77,7 +80,7 @@ public partial class CubeArrayTest : Node3D
             {
                 for(int z = -size; z <= size; z+=2)
                 {
-                    Cube cube = bfc.AddCube(new Vector3I(x, y, z));
+                    Cube cube = bfc.AddCube(new Vector3I(x, y, z), 1);
                     if (y != size || z != size)
                     {
                         cube.IsEdgeSharp[Cube.EdgeName.TopFront] = true;
@@ -104,7 +107,7 @@ public partial class CubeArrayTest : Node3D
             {
                 for(int z = -size; z <= size; z+=2)
                 {
-                    Cube cube = bfc.AddCube(new Vector3I(x, y, z));
+                    Cube cube = bfc.AddCube(new Vector3I(x, y, z), 1);
                     if (x != -size || z != -size)
                     {
                         cube.IsEdgeSharp[Cube.EdgeName.BackLeft] = true;
@@ -133,7 +136,7 @@ public partial class CubeArrayTest : Node3D
         );
 
         Surface surf = bfc.ToSurface();
-        surf = surf.Distort(distortion);
+        surf.Distort(distortion);
         surf = ccs.Subdivide(surf);
         surf = ccs.Subdivide(surf);
         // surf = ccs.Subdivide(surf);

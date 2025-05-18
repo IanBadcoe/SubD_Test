@@ -1,6 +1,10 @@
-using Godot;
 using System;
+
+using Godot;
+
 using SubD;
+using SubD.Builders;
+
 using Godot_Util;
 
 [Tool]
@@ -110,7 +114,7 @@ public partial class CubeSharpTest : Node3D
 
     void CreateCube(MeshInstance3D am, Action<Cube> action)
     {
-        Cube cube = BFC.AddCube(Vector3I.Zero);
+        Cube cube = BFC.AddCube(Vector3I.Zero, 1);
 
         action(cube);
 
@@ -120,5 +124,7 @@ public partial class CubeSharpTest : Node3D
         surf = CCS.Subdivide(surf);
 
         am.Mesh = surf.ToMesh(Surface.MeshMode.Surface);
+
+        BFC.Reset();
     }
 }
