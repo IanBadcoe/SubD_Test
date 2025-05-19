@@ -17,7 +17,7 @@ _surfaces = [{
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2t50i"]
 albedo_color = Color(0.0688, 0.32164, 0.43, 1)
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_2ddib"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_2t50i"]
 _surfaces = [{
 "aabb": AABB(-4.33782, 3.91869, -5.5449, 15.4248, 22.1127, 10.5543),
 "format": 34359742471,
@@ -37,7 +37,7 @@ emission_energy_multiplier = 2.0
 grow = true
 grow_amount = 0.01
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_j3r70"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_2ddib"]
 _surfaces = [{
 "aabb": AABB(-4.52439, 3.77853, -5.57277, 15.7752, 22.421, 10.7148),
 "format": 34359742471,
@@ -63,10 +63,10 @@ mesh = SubResource("ArrayMesh_tsk1a")
 surface_material_override/0 = SubResource("StandardMaterial3D_2t50i")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-mesh = SubResource("ArrayMesh_2ddib")
+mesh = SubResource("ArrayMesh_2t50i")
 surface_material_override/0 = SubResource("StandardMaterial3D_2ddib")
 
 [node name="Normals" type="MeshInstance3D" parent="."]
 visible = false
-mesh = SubResource("ArrayMesh_j3r70")
+mesh = SubResource("ArrayMesh_2ddib")
 surface_material_override/0 = SubResource("StandardMaterial3D_7x6bo")

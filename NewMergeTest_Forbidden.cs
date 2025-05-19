@@ -15,7 +15,7 @@ using System;
 
 [Tool]
 [Meta(typeof(IAutoConnect))]
-public partial class NewMergeTest : Node3D
+public partial class NewMergeTest_Forbidden : Node3D
 {
     // --------------------------------------------------------------
     // IAutoNode boilerplate
@@ -53,9 +53,19 @@ public partial class NewMergeTest : Node3D
 
     void TestCase(int seed, int width, int height, int thickness, TestMode mode, int[] subset = null)
     {
-        ClRand rand = new(seed);
+        ClRand Rand = new(seed);
 
-        List<Vector3I> centres = [];
+        Vector3I[,,] centres = new Vector3I[width, height, thickness];
+        HashSet<(Vector3I, Vector3I)> forbidden_pairs = [];
+
+        Vector3I[] offsets = {
+            new(-1,  0,  0),
+            new( 1,  0,  0),
+            new( 0, -1,  0),
+            new( 0,  1,  0),
+            new( 0,  0, -1),
+            new( 0,  0,  1),
+        };
 
         for (int i = 0; i < width; i++)
         {
@@ -63,154 +73,176 @@ public partial class NewMergeTest : Node3D
             {
                 for (int k = 0; k < thickness; k++)
                 {
-                    if (rand.Float() < 0.5f)
-                    {
-                        centres.Add(new Vector3I(i, j, k));
-                    }
+                    centres[i, j, k] = new Vector3I(i, j, k);
                 }
             }
         }
 
-        if (subset != null)
+        ImBounds bounds = new(new ImVec3(0, 0, 0), new ImVec3(width - 1, height - 1, thickness - 1));
+
+        foreach(Vector3I here in centres)
         {
-            ReducedTestCase(centres, subset);
-        }
-
-        switch(mode)
-        {
-            case TestMode.Basic:
-                TestCase(centres);
-                break;
-
-            case TestMode.Dissect:
-                TestCaseDissect(centres);
-                break;
-
-            case TestMode.RandomDissect:
-                TestCaseRandomDissect(centres, 1000);
-                break;
-        }
-    }
-
-    private void TestCaseRandomDissect(List<Vector3I> centres, int max_tries_per_size)
-    {
-        int max_cubes = centres.Count;
-
-        ClRand rand = new(73);
-
-        for (int num_cubes = 1; num_cubes < max_cubes; num_cubes++)
-        {
-            float combinations = 1;
-
-            for(int i = 0; i < num_cubes; i++)
+            foreach(Vector3I offset in offsets)
             {
-                combinations *= (max_cubes - i);
-            }
+                Vector3I where = here + offset;
 
-            if (combinations < max_tries_per_size)
-            {
-                TestCaseDissectOneLength(centres, num_cubes);
-            }
-            else
-            {
-                for(int attempt = 0; attempt < max_tries_per_size; attempt++)
+                if (bounds.Contains(new ImVec3(where.X, where.Y, where.Z)))
                 {
-                    int?[] state = new int?[num_cubes];
-
-                    for(int i = 0; i < num_cubes; i++)
+                    if (Rand.Float() < 0.15f)
                     {
-                        do
-                        {
-                            state[i] = rand.IntRange(max_cubes);
-                        }
-                        while(state.Where(x => x.HasValue && x.Value == state[i]).Count() > 1);
+                        forbidden_pairs.Add((here, where));
                     }
-
-                    Debug.Print("[" + state.Aggregate("", (x, y) => x + (x != "" ? "," : "") + y.ToString()) + "]");
-
-                    ReducedTestCase(centres, [.. state.Select(x => x.Value)]);
                 }
             }
         }
+
+        // if (subset != null)
+        // {
+        //     ReducedTestCase(centres, subset);
+        // }
+
+        // switch(mode)
+        // {
+        //     case TestMode.Basic:
+                TestCase(centres, forbidden_pairs);
+        //         break;
+
+        //     case TestMode.Dissect:
+        //         TestCaseDissect(centres);
+        //         break;
+
+        //     case TestMode.RandomDissect:
+        //         TestCaseRandomDissect(centres, 1000);
+        //         break;
+        // }
     }
 
-    private void TestCaseDissect(List<Vector3I> centres)
-    {
-        int max_cube = centres.Count;
+    // private void TestCaseRandomDissect(List<Vector3I> centres, int max_tries_per_size)
+    // {
+    //     int max_cubes = centres.Count;
 
-        for (int num_cubes = 1; num_cubes <= max_cube; num_cubes++)
-        {
-            TestCaseDissectOneLength(centres, num_cubes);
-        }
-    }
+    //     ClRand rand = new(73);
 
-    private void TestCaseDissectOneLength(List<Vector3I> centres, int num_cubes)
-    {
-        int max_cube = centres.Count;
+    //     for (int num_cubes = 1; num_cubes < max_cubes; num_cubes++)
+    //     {
+    //         float combinations = 1;
 
-        int[] state = new int[num_cubes];
+    //         for(int i = 0; i < num_cubes; i++)
+    //         {
+    //             combinations *= (max_cubes - i);
+    //         }
 
-        for (int i = 0; i < num_cubes; i++)
-        {
-            state[i] = i;
-        }
+    //         if (combinations < max_tries_per_size)
+    //         {
+    //             TestCaseDissectOneLength(centres, num_cubes);
+    //         }
+    //         else
+    //         {
+    //             for(int attempt = 0; attempt < max_tries_per_size; attempt++)
+    //             {
+    //                 int?[] state = new int?[num_cubes];
 
-        bool done = false;
+    //                 for(int i = 0; i < num_cubes; i++)
+    //                 {
+    //                     do
+    //                     {
+    //                         state[i] = rand.IntRange(max_cubes);
+    //                     }
+    //                     while(state.Where(x => x.HasValue && x.Value == state[i]).Count() > 1);
+    //                 }
 
-        while (!done)
-        {
-            Debug.Print("[" + state.Aggregate("", (x, y) => x + (x != "" ? "," : "") + y.ToString()) + "]");
+    //                 Debug.Print("[" + state.Aggregate("", (x, y) => x + (x != "" ? "," : "") + y.ToString()) + "]");
 
-            ReducedTestCase(centres, state);
+    //                 ReducedTestCase(centres, [.. state.Select(x => x.Value)]);
+    //             }
+    //         }
+    //     }
+    // }
 
-            do
-            {
-                for (int i = num_cubes - 1; i >= 0; i--)
-                {
-                    state[i]++;
+    // private void TestCaseDissect(List<Vector3I> centres)
+    // {
+    //     int max_cube = centres.Count;
 
-                    if (state[i] < max_cube)
-                    {
-                        break;
-                    }
+    //     for (int num_cubes = 1; num_cubes <= max_cube; num_cubes++)
+    //     {
+    //         TestCaseDissectOneLength(centres, num_cubes);
+    //     }
+    // }
 
-                    // when the first (slowest) index clocks, we are done
-                    if (i == 0)
-                    {
-                        done = true;
-                        break;
-                    }
+    // private void TestCaseDissectOneLength(List<Vector3I> centres, int num_cubes)
+    // {
+    //     int max_cube = centres.Count;
 
-                    state[i] = 0;
-                }
-            } while (!done && num_cubes > state.Distinct().Count());      // skip any states with duplicate cubes
-        }
-    }
+    //     int[] state = new int[num_cubes];
 
+    //     for (int i = 0; i < num_cubes; i++)
+    //     {
+    //         state[i] = i;
+    //     }
 
-    private void ReducedTestCase(List<Vector3I> centres, int[] state)
-    {
-        List<Vector3I> reduced_case = [];
+    //     bool done = false;
 
-        foreach (int i in state)
-        {
-            reduced_case.Add(centres[i]);
-        }
+    //     while (!done)
+    //     {
+    //         Debug.Print("[" + state.Aggregate("", (x, y) => x + (x != "" ? "," : "") + y.ToString()) + "]");
 
-        TestCase(reduced_case);
-    }
+    //         ReducedTestCase(centres, state);
 
-    private void TestCase(List<Vector3I> centres)
+    //         do
+    //         {
+    //             for (int i = num_cubes - 1; i >= 0; i--)
+    //             {
+    //                 state[i]++;
+
+    //                 if (state[i] < max_cube)
+    //                 {
+    //                     break;
+    //                 }
+
+    //                 // when the first (slowest) index clocks, we are done
+    //                 if (i == 0)
+    //                 {
+    //                     done = true;
+    //                     break;
+    //                 }
+
+    //                 state[i] = 0;
+    //             }
+    //         } while (!done && num_cubes > state.Distinct().Count());      // skip any states with duplicate cubes
+    //     }
+    // }
+
+    // private void ReducedTestCase(List<Vector3I> centres, int[] state, HashSet<(Vector3I, Vector3I)> forbidden_merge_pairs)
+    // {
+    //     List<Vector3I> reduced_case = [];
+
+    //     foreach (int i in state)
+    //     {
+    //         reduced_case.Add(centres[i]);
+    //     }
+
+    //     TestCase(reduced_case);
+    // }
+
+    private void TestCase(Vector3I[,,] centres, HashSet<(Vector3I, Vector3I)> forbidden_merge_pairs)
     {
         BFC.Reset();
 
-        List<Cube> cubes = [];
+        int width = centres.GetUpperBound(0) + 1;
+        int height = centres.GetUpperBound(1) + 1;
+        int thickness = centres.GetUpperBound(2) + 1;
+        Cube[,,] cubes = new Cube[width, height, thickness];
 
         PoorMansProfiler.Start("Cubes");
 
         foreach (Vector3I centre in centres)
         {
-            cubes.Add(BFC.AddCube(centre, 0));
+            cubes[centre.X, centre.Y, centre.Z] = BFC.AddCube(centre, 0);
+        }
+
+        foreach((Vector3I i, Vector3I j) in forbidden_merge_pairs)
+        {
+            BFC.ForbidSpecificMerge(cubes[i.X, i.Y, i.Z], cubes[j.X, j.Y, j.Z]);
         }
 
         PoorMansProfiler.End("Cubes");
@@ -243,7 +275,7 @@ public partial class NewMergeTest : Node3D
         MergedSurf.Mesh = surf.ToMesh(Surface.MeshMode.Surface);
         PoorMansProfiler.End("ToMesh - merged");
 
-        ImBounds bounds = centres.Aggregate(new ImBounds(), (x, y) => x.Encapsulating(new ImVec3(y)));
+        ImBounds bounds = new(new(0, 0, 0), new(width - 1, height - 1, thickness - 1));
 
         bounds.ExpandedBy(1);
 
@@ -348,7 +380,7 @@ public partial class NewMergeTest : Node3D
     {
         int size = (TestCaseIdx / 10) + 2;
 
-        TestCase(TestCaseIdx % 10, size, size, size, CurrentTestMode);
+        TestCase(TestCaseIdx % 10, 1, size, size, CurrentTestMode);
 
         TestCaseIdx++;
     }

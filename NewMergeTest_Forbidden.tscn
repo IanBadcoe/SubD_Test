@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://84p7d3s2a03i"]
+
+[ext_resource type="Script" uid="uid://0rsinx0axjsn" path="res://NewMergeTest_Forbidden.cs" id="1_q2vtx"]
+
+[node name="NewMergeTest" type="Node3D"]
+script = ExtResource("1_q2vtx")
+
+[node name="MergedSurf" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+
+[node name="MergedGrid" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Camera" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.242536, -0.423405, 0.872872, 0, 0.899735, 0.436436, -0.970143, -0.105851, 0.218218, 9.29423, 5.39711, 3.44856)
+
+[node name="DirectionalLight" type="DirectionalLight3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.934335, -0.315294, 0.166157, 0, 0.466214, 0.884672, -0.356396, -0.82658, 0.4356, 20, 100, 50)
+light_energy = 3.0
