@@ -1,40 +1,71 @@
 By section name
 
-Concat	->	92
-Cubes	->	5183
-Debug	->	1307
-DumbConcat	->	51144
-MergeFacePair	->	232057
-MergeFaces	->	241868
-Outer	->	383480
-PopulateMergeStock	->	16834
-Subdivide	->	50145
-TargetCheck	->	233080
-ToMesh - merged	->	4299
-ToMesh - separate	->	8140
-ToSurface - merged	->	276482
-ToSurface - separate	->	36342
-ToSurfaces	->	312635
+Build Face List	->	275
+Cleanup	->	13316
+Concat	->	14075
+Distort	->	873
+Divide	->	346285
+DumbConcat	->	54384
+Edge Merge Loop	->	55285
+Edge Swap	->	912
+Face Swap	->	337
+Forwards	->	3437
+Inner Loop	->	151207
+Loop	->	262857
+Match Verts	->	2529
+Merge	->	416522
+Merge Groups	->	384272
+MergeEdgesWithFaceSpace	->	52058
+MergeFacePair	->	144058
+MergeFaces	->	263142
+Meshing	->	512624
+Pair Edges	->	1289
+PopulateMergeStock	->	30682
+Remove	->	6966
+Remove Edge	->	5660
+Remove Faces	->	69670
+Search	->	105358
+Sort	->	4504
+Spatial	->	60020
+Swap Verts	->	2715
+TargetCheck	->	149434
+ToSurface	->	416184
+ToSurfaces	->	416031
 
 
 By stack path
 
-  |  Outer	->	383480
-  |  Outer  |  Cubes	->	5183
-  |  Outer  |  Subdivide	->	50145
-  |  Outer  |  ToMesh - merged	->	4299
-  |  Outer  |  ToMesh - separate	->	8140
-  |  Outer  |  ToSurface - merged	->	276482
-  |  Outer  |  ToSurface - merged  |  Concat	->	13
-  |  Outer  |  ToSurface - merged  |  ToSurfaces	->	276467
-  |  Outer  |  ToSurface - merged  |  ToSurfaces  |  Debug	->	882
-  |  Outer  |  ToSurface - merged  |  ToSurfaces  |  DumbConcat	->	33314
-  |  Outer  |  ToSurface - merged  |  ToSurfaces  |  MergeFaces	->	241868
-  |  Outer  |  ToSurface - merged  |  ToSurfaces  |  MergeFaces  |  TargetCheck	->	233080
-  |  Outer  |  ToSurface - merged  |  ToSurfaces  |  MergeFaces  |  TargetCheck  |  MergeFacePair	->	232057
-  |  Outer  |  ToSurface - separate	->	36342
-  |  Outer  |  ToSurface - separate  |  Concat	->	79
-  |  Outer  |  ToSurface - separate  |  ToSurfaces	->	36168
-  |  Outer  |  ToSurface - separate  |  ToSurfaces  |  Debug	->	425
-  |  Outer  |  ToSurface - separate  |  ToSurfaces  |  DumbConcat	->	17830
-  |  Outer  |  ToSurface - separate  |  ToSurfaces  |  PopulateMergeStock	->	16834
+  |  Distort	->	873
+  |  Divide	->	346285
+  |  Merge	->	416522
+  |  Merge  |  ToSurface	->	416184
+  |  Merge  |  ToSurface  |  Concat	->	152
+  |  Merge  |  ToSurface  |  ToSurfaces	->	416031
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups	->	384272
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  DumbConcat	->	54384
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces	->	263142
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Build Face List	->	275
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop	->	262857
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop	->	151207
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck	->	149434
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair	->	144058
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Cleanup	->	13316
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Cleanup  |  Remove	->	6966
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Cleanup  |  Remove  |  Forwards	->	1279
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Cleanup  |  Sort	->	4504
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Edge Merge Loop	->	55285
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Edge Merge Loop  |  MergeEdgesWithFaceSpace	->	52058
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Edge Merge Loop  |  MergeEdgesWithFaceSpace  |  Concat	->	13923
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Edge Merge Loop  |  MergeEdgesWithFaceSpace  |  Edge Swap	->	912
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Edge Merge Loop  |  MergeEdgesWithFaceSpace  |  Face Swap	->	337
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Edge Merge Loop  |  MergeEdgesWithFaceSpace  |  Match Verts	->	2529
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Edge Merge Loop  |  MergeEdgesWithFaceSpace  |  Remove Edge	->	5660
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Edge Merge Loop  |  MergeEdgesWithFaceSpace  |  Remove Edge  |  Forwards	->	1479
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Edge Merge Loop  |  MergeEdgesWithFaceSpace  |  Swap Verts	->	2715
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Pair Edges	->	1289
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Remove Faces	->	69670
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Remove Faces  |  Forwards	->	679
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Inner Loop  |  TargetCheck  |  MergeFacePair  |  Remove Faces  |  Spatial	->	60020
+  |  Merge  |  ToSurface  |  ToSurfaces  |  Merge Groups  |  MergeFaces  |  Loop  |  Search	->	105358
+  |  Merge  |  ToSurface  |  ToSurfaces  |  PopulateMergeStock	->	30682
+  |  Meshing	->	512624

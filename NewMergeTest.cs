@@ -1,4 +1,4 @@
-// #define PROFILE_ON
+// // #define PROFILE_ON
 
 using Godot;
 using SubD;
@@ -330,7 +330,7 @@ public partial class NewMergeTest : Node3D
 
         if (!Engine.IsEditorHint())
         {
-            if (Input.IsActionJustReleased("Space") || (Auto && Timing + 500 < now))
+            if (Input.IsActionJustReleased("Space") || (Auto && Timing + 50 < now))
             {
                 NextTestCase();
 
