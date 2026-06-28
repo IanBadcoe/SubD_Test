@@ -12,6 +12,7 @@ using System.Linq;
 using Geom_Util;
 using System.Diagnostics;
 using System;
+using Geom_Util.Immutable;
 
 [Tool]
 [Meta(typeof(IAutoConnect))]

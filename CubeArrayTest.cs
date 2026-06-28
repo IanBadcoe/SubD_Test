@@ -3,6 +3,7 @@
 using Chickensoft.AutoInject;
 using Chickensoft.Introspection;
 using Geom_Util;
+using Geom_Util.Immutable;
 using Godot;
 using Godot_Util;
 using SubD;
@@ -156,9 +157,9 @@ public partial class CubeArrayTest : Node3D
         // surf = ccs.Subdivide(surf);
 
         PoorMansProfiler.Start("Meshing");
-        Surface.Mesh = surf.ToMesh(SubD.Surface.MeshMode.Surface);
-        SharpMesh.Mesh = surf.ToMesh(SubD.Surface.MeshMode.Edges, new MeshOptions(){ Edges_Offset = 0.01f, Edges_IncludeSmooth = false });
-        Mesh.Mesh = surf.ToMesh(SubD.Surface.MeshMode.Edges, new MeshOptions(){ Edges_Offset = 0.01f, Edges_IncludeSharp = false });
+        Surface.Mesh = surf.ToMesh(Geom_Util.Surface.MeshMode.Surface);
+        SharpMesh.Mesh = surf.ToMesh(Geom_Util.Surface.MeshMode.Edges, new MeshOptions(){ Edges_Offset = 0.01f, Edges_IncludeSmooth = false });
+        Mesh.Mesh = surf.ToMesh(Geom_Util.Surface.MeshMode.Edges, new MeshOptions(){ Edges_Offset = 0.01f, Edges_IncludeSharp = false });
         PoorMansProfiler.End("Meshing");
 
         PoorMansProfiler.Dump("profile.txt");

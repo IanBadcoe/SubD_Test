@@ -6,6 +6,7 @@ using SubD;
 using SubD.Builders;
 
 using Godot_Util;
+using Geom_Util;
 
 [Tool]
 public partial class CubeSharpTest : Node3D

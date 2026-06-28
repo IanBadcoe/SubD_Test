@@ -4,8 +4,9 @@ using SubD;
 using SubD.Builders;
 
 using Godot_Util;
+using Geom_Util;
 
-using VIdx = SubD.Idx<SubD.Vert>;
+using VIdx = Geom_Util.Idx<Geom_Util.Vert>;
 
 [Tool]
 public partial class VertSplitTest : Node3D

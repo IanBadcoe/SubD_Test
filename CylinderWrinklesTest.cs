@@ -3,6 +3,7 @@ using Godot;
 using SubD;
 using SubD.CylTypes;
 using SubD.Builders;
+using Geom_Util;
 
 [Tool]
 public partial class CylinderWrinklesTest : Node3D
